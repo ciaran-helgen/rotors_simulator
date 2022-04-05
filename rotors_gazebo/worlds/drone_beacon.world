@@ -1,0 +1,182 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
+         topic to a ROS topic (or vise versa). -->
+    <plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>
+
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>47.3667</latitude_deg>
+      <longitude_deg>8.5500</longitude_deg>
+      <elevation>500.0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <physics type='ode'>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>1000</iters>
+          <sor>1.3</sor>
+        </solver>
+        <constraints>
+          <cfm>0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>100</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+    <!-- Wireless basestation (mat) model -->
+    <model name="basestation">
+      <static>true</static>
+      <link name="mat_link">
+        <pose>0 0 0.01 0 0 0</pose>
+        <visual name="mat">
+          <geometry>
+            <plane>
+              <size>1.1 1.1</size>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0 0 0 1</specular>
+          </material>
+        </visual>
+      </link>
+      
+    <!-- Antenna 0 -->
+      <link name="ant0_link">
+        <visual name="ant_vis">
+          <pose>0.5 0.5 0.01 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>.02</radius>
+              <length>.001</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>1 0.1 0.1 1</ambient>
+            <diffuse>1 0.1 0.1 1</diffuse>
+            <specular>0 0 0 1</specular>
+          </material>
+        </visual>
+        <sensor name="wirelessTransmitter0" type="wireless_transmitter">
+          <pose>0.5 0.5 0.01 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>20</update_rate>
+          <visualize>true</visualize>
+          <transceiver>
+            <essid>TX0</essid>
+            <frequency>868.7</frequency>
+            <power>14.5</power>
+            <gain>5</gain>
+          </transceiver>
+        </sensor>
+      </link>
+      <!-- Antenna 1 -->
+      <link name="ant1_link">
+        <visual name="ant_vis">
+          <pose>0.5 -0.5 0.01 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>.02</radius>
+              <length>.001</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 1 0.1 1</ambient>
+            <diffuse>0.1 1 0.1 1</diffuse>
+            <specular>0 0 0 1</specular>
+          </material>
+        </visual>
+        <sensor name="wirelessTransmitter1" type="wireless_transmitter">
+          <pose>0.5 -0.5 0.01 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>20</update_rate>
+          <visualize>true</visualize>
+          <transceiver>
+            <essid>TX1</essid>
+            <frequency>868.9</frequency>
+            <power>14.5</power>
+            <gain>5</gain>
+          </transceiver>
+        </sensor>
+      </link>
+
+      <!-- Antenna 2 -->
+      <link name="ant2_link">
+        <visual name="ant_vis">
+          <pose>-0.5 -0.5 0.01 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>.02</radius>
+              <length>.001</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.1 1 1</ambient>
+            <diffuse>0.1 0.1 1 1</diffuse>
+            <specular>0 0 0 1</specular>
+          </material>
+        </visual>
+        <sensor name="wirelessTransmitter2" type="wireless_transmitter">
+          <pose>-0.5 -0.5 0.01 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>20</update_rate>
+          <visualize>true</visualize>
+          <transceiver>
+            <essid>TX2</essid>
+            <frequency>869.1</frequency>
+            <power>14.5</power>
+            <gain>5</gain>
+          </transceiver>
+        </sensor>
+      </link>
+
+      <!-- Antenna 3 -->
+      <link name="ant3_link">
+        <visual name="ant_vis">
+          <pose>-0.5 0.5 0.01 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>.02</radius>
+              <length>.001</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.1 0.1 0.1 1</diffuse>
+            <specular>0 0 0 1</specular>
+          </material>
+        </visual>
+        <sensor name="wirelessTransmitter3" type="wireless_transmitter">
+          <pose>-0.5 0.5 0.01 0 0 0</pose>
+          <always_on>1</always_on>
+          <update_rate>20</update_rate>
+          <visualize>true</visualize>
+          <transceiver>
+            <essid>TX3</essid>
+            <frequency>869.3</frequency>
+            <power>14.5</power>
+            <gain>5</gain>
+          </transceiver>
+        </sensor>
+      </link>
+
+    </model>
+  </world>
+</sdf>
